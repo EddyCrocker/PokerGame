@@ -48,6 +48,20 @@ public class CardGame implements Game {
         playGameNow();
     }
 
+    public boolean checkTurnPlayers(Map<Player,Integer> mapMoney,Integer countTurn){
+        boolean turnFirstFinish = false;
+        if(countTurn == 1) {
+            ++countTurn;
+            if (mapMoney.size() != 0) {
+                for (Player player : playerList) {
+                    Integer moneyPlayer = mapMoney.get(player);
+                    turnFirstFinish = moneyPlayer != null;
+                }
+            }
+        }
+        return turnFirstFinish;
+    }
+
     public void playGameNow(){
         int i;
         List<Cards> selectedCard = new ArrayList<Cards>();
@@ -56,28 +70,19 @@ public class CardGame implements Game {
         Player maxPlayer = new Player(0);
             int countTurn = 1;
             final int first = 1;
-            while (playerList.size() != 1) {
-                int s = 0;
                 do {
-                    boolean turnFistFinish = countTurn != 1;
-                    if(countTurn == 1) {
-                        if (mapMoney.size() != 0) {
-                            for (Player player : playerList) {
-                                Integer moneyPlayer = mapMoney.get(player);
-                                if (moneyPlayer != null) {
-                                    turnFistFinish = true;
-                                } else {
-                                    turnFistFinish = false;
-                                }
-                            }
-                        }
-                    }
-
-                    if(turnFistFinish) {
+                    boolean turnFirstFinish = checkTurnPlayers(mapMoney,countTurn);
+                    if(turnFirstFinish) {
                         countTurn++;
                     }
 
                     Player player = getNextPlayer();
+                    System.out.print("Show your card" + " " + player.getNickName() +"? Y/N: ");
+                    Scanner inChoose = new Scanner(System.in);
+                    String choose = inChoose.next();
+                    if(choose.equals("Y")) {
+                        displayCardsForPlayer(player);
+                    }
                     Integer playerMoney;
                     Integer blind;
 
@@ -106,6 +111,7 @@ public class CardGame implements Game {
                                 break;
                             case 2:
                                 playerList.remove(player);
+                                break;
                         }
                     } else {
                         switch (i) {
@@ -124,10 +130,12 @@ public class CardGame implements Game {
                                 playerMoney = mapMoney.get(player);
                                 mapMoney.remove(player);
                                 mapMoney.put(player,playerMoney + (previusBet != null ? previusBet : 0));
+                                break;
                             case 3:
                                 this.betPreviusPlayer = null;
                                 break;
                             case 4:
+                            case 7:
                                 playerList.remove(player);
                                 break;
                             case 5:
@@ -142,13 +150,10 @@ public class CardGame implements Game {
                             case 6:
                                 displayCardAllPlayer();
                                 break;
-                            case 7:
-                                playerList.remove(player);
-                                break;
                         }
                     }
                 }
-                while (s < playerList.size());
+                while (playerList.size() != 1);
 
                 if (maxPlayer.getIdPlayer() > 0) {
 
@@ -158,7 +163,6 @@ public class CardGame implements Game {
                     displayScores();
                 }
             }
-    }
 
     private void distributeCardsForPlayers(List<Player> player){
 
@@ -234,17 +238,20 @@ public class CardGame implements Game {
 
     private void displayCardsForPlayer(Player pl)
     {
-        int cards = cardsPlayerMap.get(pl).size();
-        for (int i = 0; i < cards;)
-        {
-            System.out.print((++i) + " ");
+        List<Cards> card = cardsPlayerMap.get(pl);
+        for(Cards cards : card){
+            System.out.println("cards" +" " + pl.getNickName() + ":" + cards.getCardNumber() + ","
+                    + cards.getCardColor() + "," + cards.getCardType());
         }
     }
 
     private void displayCardAllPlayer(){
-        int cards = cardsPlayerMap.size();
-        for(int i = 0; i < cards;){
-            System.out.print((++i) + " ");
+        for(Player player : playerList){
+            List<Cards> card = cardsPlayerMap.get(player);
+            for(Cards cards : card){
+                System.out.println("cards" + player.getNickName() + ":" + cards.getCardNumber() + ","
+                        + cards.getCardColor() + "," + cards.getCardType());
+            }
         }
     }
 
