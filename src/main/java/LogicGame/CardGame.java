@@ -62,8 +62,31 @@ public class CardGame implements Game {
         return turnFirstFinish;
     }
 
-    public void playGameNow(){
+    public int choosePlayerSelection(Player player,int countTurn){
         int i;
+        final int first = 1;
+        System.out.print("Show your card" + " " + player.getNickName() +"? Y/N: ");
+        Scanner inChoose = new Scanner(System.in);
+        String choose = inChoose.next();
+        if(choose.equals("Y")) {
+            displayCardsForPlayer(player);
+        }
+        System.out.println(countTurn == first ? ActionTurn.TURN_FIRST.getAction() : ActionTurn.OTHER_TURN.getAction());
+        System.out.println("Chance for Player..." + player.getNickName());
+        System.out.print("Please provide your option : ");
+
+        Scanner in = new Scanner(System.in);
+        i = in.nextInt();
+
+        if(betPreviusPlayer == null && i == 3){
+            System.out.println("Dont't possible check turn, select other option :");
+            in = new Scanner(System.in);
+            i = in.nextInt();
+        }
+        return i;
+    }
+
+    public void playGameNow(){
         List<Cards> selectedCard = new ArrayList<Cards>();
         Map<Player,Integer> mapMoney = new HashMap<>();
         Cards maxCard = null;
@@ -75,36 +98,19 @@ public class CardGame implements Game {
                     if(turnFirstFinish) {
                         countTurn++;
                     }
-
                     Player player = getNextPlayer();
-                    System.out.print("Show your card" + " " + player.getNickName() +"? Y/N: ");
-                    Scanner inChoose = new Scanner(System.in);
-                    String choose = inChoose.next();
-                    if(choose.equals("Y")) {
-                        displayCardsForPlayer(player);
-                    }
+
                     Integer playerMoney;
                     Integer blind;
 
-                    System.out.println(countTurn == first ? ActionTurn.TURN_FIRST.getAction() : ActionTurn.OTHER_TURN.getAction());
-                    System.out.println("Chance for Player..." + player.getNickName());
-                    System.out.print("Please provide your option : ");
-
-                    Scanner in = new Scanner(System.in);
-                    i = in.nextInt();
-
-                    if(betPreviusPlayer == null && i == 3){
-                        System.out.println("Dont't possible check turn, select other option :");
-                        in = new Scanner(System.in);
-                        i = in.nextInt();
-                    }
+                    int i = choosePlayerSelection(player,countTurn);
 
                     if (countTurn == first) {
 
                         switch (i) {
                             case 1:
                                 System.out.println("Your Blind :");
-                                in = new Scanner(System.in);
+                                Scanner in = new Scanner(System.in);
                                 blind = in.nextInt();
                                 this.betPreviusPlayer = blind;
                                 mapMoney.put(player, blind);
@@ -117,7 +123,7 @@ public class CardGame implements Game {
                         switch (i) {
                             case 1:
                                 System.out.println("Your Bet :");
-                                in = new Scanner(System.in);
+                                Scanner in = new Scanner(System.in);
                                 blind = in.nextInt();
                                 this.betPreviusPlayer = blind;
                                 playerMoney = mapMoney.get(player);
