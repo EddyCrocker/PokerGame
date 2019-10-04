@@ -10,19 +10,22 @@
 	</parent>
 	<groupId>PokerGame</groupId>
 	<artifactId>PokerGame</artifactId>
+	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>PokerGame</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
-		<java.version>1.8</java.version>
+		<java.version>12</java.version>
+		<spring-boot-admin.version>2.1.4</spring-boot-admin.version>
+<!--		<property name="javax.persistence.jdbc.url" value="jdbc:h2:./test"/>-->
 	</properties>
 
 	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>org.springframework.boot</groupId>-->
+<!--			<artifactId>spring-boot-starter-data-jpa</artifactId>-->
+<!--		</dependency>-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -36,21 +39,21 @@
 			<artifactId>maven-dependency-plugin</artifactId>
 			<version>3.1.1</version>
 		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>mysql</groupId>-->
+<!--			<artifactId>mysql-connector-java</artifactId>-->
+<!--			<version>8.0.17</version>-->
+<!--		</dependency>-->
 		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>8.0.17</version>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>5.1.5.RELEASE</version>
 		</dependency>
-		<!--        <dependency>-->
-		<!--            <groupId>org.springframework.security</groupId>-->
-		<!--            <artifactId>spring-security-web</artifactId>-->
-		<!--            <version>5.1.5.RELEASE</version>-->
-		<!--        </dependency>-->
-		<!--        <dependency>-->
-		<!--            <groupId>org.springframework.security</groupId>-->
-		<!--            <artifactId>spring-security-config</artifactId>-->
-		<!--            <version>5.1.5.RELEASE</version>-->
-		<!--        </dependency>-->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>5.1.5.RELEASE</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -71,11 +74,11 @@
 		</dependency>
 
 		<!--        L'artefice dell'interfaccia Repository-->
-		<dependency>
-			<groupId>org.springframework.data</groupId>
-			<artifactId>spring-data-jpa</artifactId>
-			<version>2.1.10.RELEASE</version>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>org.springframework.data</groupId>-->
+<!--			<artifactId>spring-data-jpa</artifactId>-->
+<!--			<version>2.1.10.RELEASE</version>-->
+<!--		</dependency>-->
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

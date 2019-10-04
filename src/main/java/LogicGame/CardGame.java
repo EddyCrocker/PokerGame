@@ -27,7 +27,7 @@ public class CardGame implements Game {
         card = inizializeCardPackage();
     }
 
-    private List<Cards> inizializeCardPackage() {
+    public List<Cards> inizializeCardPackage() {
         List<Cards> cards = new ArrayList<Cards>(52);
         final int type = 4;
         final int numberOfCard = 14;
@@ -46,6 +46,37 @@ public class CardGame implements Game {
         createMultipleUser(numberOfPlayers);
         System.out.println("Game started :)");
         playGameNow();
+    }
+
+    public void initializePlayer(){
+        System.out.println("Card Game \n Player Options");
+			System.out.println("1. Start Game \n  \n2. Exit Game");
+			System.out.print("Please provide your option : ");
+
+			int i = 1;
+
+			while (i != 0) {
+				Scanner in = new Scanner(System.in);
+				i = in.nextInt();
+
+				switch (i) {
+					case 1:
+						System.out.println("Provide the Number of Players( should be greater than 1 and less than 4) : ");
+						in = new Scanner(System.in);
+						i = in.nextInt();
+						InitializeSessionGame(i);
+//						displayWinners();
+						break;
+
+					case 2:
+						System.exit(0);
+				}
+
+				System.out.println();
+				System.out.println("Card Game \n Select User Options");
+				System.out.println("1. Start Game \n2. Exit Game");
+				System.out.print("Please provide your option : ");
+			}
     }
 
     public boolean checkTurnPlayers(Map<Player,Integer> mapMoney,Integer countTurn){
