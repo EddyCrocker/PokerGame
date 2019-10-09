@@ -41,43 +41,44 @@ public class CardGame implements Game {
         return cards;
     }
 
-    public void InitializeSessionGame(int numberOfPlayers) {
-        this.numberOfPlayers = numberOfPlayers;
-        createMultipleUser(numberOfPlayers);
+    public List<Player> InitializeSessionGame(nickNameInsert namePlayers) {
+//        this.numberOfPlayers = numberOfPlayers;
         System.out.println("Game started :)");
-        playGameNow();
+        int id = (int)(Math.random() * 10);
+        return createMultipleUser(id,namePlayers);
+//        playGameNow();
     }
 
-    public void initializePlayer(){
-        System.out.println("Card Game \n Player Options");
-			System.out.println("1. Start Game \n  \n2. Exit Game");
-			System.out.print("Please provide your option : ");
-
-			int i = 1;
-
-			while (i != 0) {
-				Scanner in = new Scanner(System.in);
-				i = in.nextInt();
-
-				switch (i) {
-					case 1:
-						System.out.println("Provide the Number of Players( should be greater than 1 and less than 4) : ");
-						in = new Scanner(System.in);
-						i = in.nextInt();
-						InitializeSessionGame(i);
-//						displayWinners();
-						break;
-
-					case 2:
-						System.exit(0);
-				}
-
-				System.out.println();
-				System.out.println("Card Game \n Select User Options");
-				System.out.println("1. Start Game \n2. Exit Game");
-				System.out.print("Please provide your option : ");
-			}
-    }
+//    public void initializePlayer(){
+//        System.out.println("Card Game \n Player Options");
+//			System.out.println("1. Start Game \n  \n2. Exit Game");
+//			System.out.print("Please provide your option : ");
+//
+//			int i = 1;
+//
+//			while (i != 0) {
+//				Scanner in = new Scanner(System.in);
+//				i = in.nextInt();
+//
+//				switch (i) {
+//					case 1:
+//						System.out.println("Provide the Number of Players( should be greater than 1 and less than 4) : ");
+//						in = new Scanner(System.in);
+//						i = in.nextInt();
+////						InitializeSessionGame(i);
+////						displayWinners();
+//						break;
+//
+//					case 2:
+//						System.exit(0);
+//				}
+//
+//				System.out.println();
+//				System.out.println("Card Game \n Select User Options");
+//				System.out.println("1. Start Game \n2. Exit Game");
+//				System.out.print("Please provide your option : ");
+//			}
+//    }
 
     public boolean checkTurnPlayers(Map<Player,Integer> mapMoney,Integer countTurn){
         boolean turnFirstFinish = false;
@@ -230,24 +231,16 @@ public class CardGame implements Game {
 
     }
 
-    private void createMultipleUser(int j)
-    {
-        if (playerList.size() != 0)
-        {
-            playerList.clear();
-        }
-
-        for (int i = 0; i < j; i++)
-        {
-            int id = i + 1;
-            String username;
-            System.out.println("Insert the nickname : ");
-            Scanner scanner = new Scanner(System.in);
-            username = scanner.next();
-            Player user = new Player(id,username);
-            playerList.add(user);
-        }
-        distributeCardsForPlayers(playerList);
+    private List<Player> createMultipleUser(int id, nickNameInsert namePlayers) {
+//        if (playerList.size() != 0) {
+//            playerList.clear();
+////        }
+//        for (int i = 0; i < playerList.size(); i++) {
+                Player user = new Player(id, namePlayers.getNickName());
+                playerList.add(user);
+//        }
+        return playerList;
+//        distributeCardsForPlayers(playerList);
     }
 
     private Player getNextPlayer()

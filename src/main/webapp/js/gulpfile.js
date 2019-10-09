@@ -13,7 +13,7 @@ var paths = {
     source: ['cards.js', 'cards-ko.js'],
     css: ['cards.css'],
     tests: ['./test/**/*.js', '!test/{temp,temp/**}'],
-    cards: ['./cards/*.svg']
+    cards: ['./img/*.svg']
 };
 paths.lint = paths.source;
 
