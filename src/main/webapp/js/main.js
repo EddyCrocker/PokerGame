@@ -1,3 +1,4 @@
+var playerArray = [];
 
 var cardNumber = {
     T : 'T',
@@ -145,6 +146,15 @@ $(document).ready(function() {
 
 var makeAvatar = function (data) {
     for(var i in data) {
+
+        var playerObject = {
+            idPlayer : data[i]['idPlayer'],
+            nickName: data[i]['nickName'],
+            point: data[i]['point']
+        };
+
+        playerArray.push(playerObject);
+
         var html = '';
         html += '<div class="field"  id="' + data[i]['idPlayer'] + '">' +
             '<img class="" src="img/avatar.svg"/>' +
@@ -152,7 +162,29 @@ var makeAvatar = function (data) {
         html += '</div>';
         $('#avatarSpace').append(html);
     }
+    // resetPlayer();
 };
+
+$(document).ready(function() {
+    $("#distribute").click(function () {
+        if (playerArray.length !== 0) {
+            var baseUrl = "http://localhost:8080/demo/";
+            for (var i in playerArray) {
+                console.log(playerArray[i])
+                $.ajax({
+                    type: "GET",
+                    url: baseUrl + "distribute",
+                    contentType: "application/json",
+                    dataType: 'json',
+                    data: {player: JSON.stringify(playerArray[i])},
+                    success: function (returnedData) {
+                        console.log(returnedData);
+                    }
+                });
+            }
+        }
+    });
+});
 
 
 

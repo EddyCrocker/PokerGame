@@ -17,8 +17,7 @@
                 </form>
                 <button id="submit">SAVE</button>
             </div>
-        <div id="avatarSpace">
-
-        </div>
+            <button id="distribute">SAVE</button>
+        <div id="avatarSpace"></div>
         </body>
 </html>

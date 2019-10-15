@@ -45,40 +45,37 @@ public class CardGame implements Game {
 //        this.numberOfPlayers = numberOfPlayers;
         System.out.println("Game started :)");
         int id = (int)(Math.random() * 10);
-        return createMultipleUser(id,namePlayers);
+        return createUser(id,namePlayers);
 //        playGameNow();
     }
 
-//    public void initializePlayer(){
-//        System.out.println("Card Game \n Player Options");
-//			System.out.println("1. Start Game \n  \n2. Exit Game");
-//			System.out.print("Please provide your option : ");
-//
-//			int i = 1;
-//
-//			while (i != 0) {
-//				Scanner in = new Scanner(System.in);
-//				i = in.nextInt();
-//
-//				switch (i) {
-//					case 1:
-//						System.out.println("Provide the Number of Players( should be greater than 1 and less than 4) : ");
-//						in = new Scanner(System.in);
-//						i = in.nextInt();
-////						InitializeSessionGame(i);
-////						displayWinners();
-//						break;
-//
-//					case 2:
-//						System.exit(0);
-//				}
-//
-//				System.out.println();
-//				System.out.println("Card Game \n Select User Options");
-//				System.out.println("1. Start Game \n2. Exit Game");
-//				System.out.print("Please provide your option : ");
-//			}
-//    }
+    public List<Cards> updateCardPackage(){
+        return card;
+    }
+
+    public Map<Player,List<Cards>> distributeCardsForPlayers(Player player){
+
+        Cards.shuffleCards(card);
+
+        if(cardsPlayerMap.size() != 0){
+            cardsPlayerMap.clear();
+        }
+
+        int m = 0;
+
+//      p.setPoint(0);
+        List<Cards> cards = new ArrayList<Cards>();
+        int cardLimit = m + numberOfCardsPerPlayer;
+        for(int i = m; i < cardLimit; i++){
+            Cards cardsGet = card.get(i);
+            cards.add(cardsGet);
+            card.remove(cardsGet);
+        }
+        m = cardLimit;
+        cardsPlayerMap.put(player,cards);
+
+        return cardsPlayerMap;
+    }
 
     public boolean checkTurnPlayers(Map<Player,Integer> mapMoney,Integer countTurn){
         boolean turnFirstFinish = false;
@@ -202,36 +199,13 @@ public class CardGame implements Game {
                 }
             }
 
-    private void distributeCardsForPlayers(List<Player> player){
 
-        this.playerList = player;
-        Cards.shuffleCards(card);
-
-        if(cardsPlayerMap.size() != 0){
-            cardsPlayerMap.clear();
-        }
-
-        int m = 0;
-
-        for(Player p : player){
-            p.setPoint(0);
-            List<Cards> cards = new ArrayList<Cards>();
-            int cardLimit = m + numberOfCardsPerPlayer;
-            for(int i = m; i < cardLimit; i++){
-                Cards cardsGet = card.get(i);
-                cards.add(cardsGet);
-                card.remove(cardsGet);
-            }
-            m = cardLimit;
-            cardsPlayerMap.put(p,cards);
-        }
-    }
 
     public void displayWinners() {
 
     }
 
-    private List<Player> createMultipleUser(int id, nickNameInsert namePlayers) {
+    private List<Player> createUser(int id, nickNameInsert namePlayers) {
 //        if (playerList.size() != 0) {
 //            playerList.clear();
 ////        }
@@ -305,6 +279,37 @@ public class CardGame implements Game {
     public void setNumberOfPlayers(int numberOfPlayers) {
         this.numberOfPlayers = numberOfPlayers;
     }
+
+    //    public void initializePlayer(){
+//        System.out.println("Card Game \n Player Options");
+//			System.out.println("1. Start Game \n  \n2. Exit Game");
+//			System.out.print("Please provide your option : ");
+//
+//			int i = 1;
+//
+//			while (i != 0) {
+//				Scanner in = new Scanner(System.in);
+//				i = in.nextInt();
+//
+//				switch (i) {
+//					case 1:
+//						System.out.println("Provide the Number of Players( should be greater than 1 and less than 4) : ");
+//						in = new Scanner(System.in);
+//						i = in.nextInt();
+////						InitializeSessionGame(i);
+////						displayWinners();
+//						break;
+//
+//					case 2:
+//						System.exit(0);
+//				}
+//
+//				System.out.println();
+//				System.out.println("Card Game \n Select User Options");
+//				System.out.println("1. Start Game \n2. Exit Game");
+//				System.out.print("Please provide your option : ");
+//			}
+//    }
 
 
 
