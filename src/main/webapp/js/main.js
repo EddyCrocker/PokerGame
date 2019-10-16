@@ -1,4 +1,6 @@
 var playerArray = [];
+var cardArraySave = [];
+var cardDistribute = [];
 
 var cardNumber = {
     T : 'T',
@@ -107,6 +109,8 @@ $(document).ready(function(){
 
 var resultSuccess = function (data) {
 
+    cardArraySave = data;
+
     for(var i in data){
         for(var x in data[i]){
             var valueConvert = switchNumber(data[i].cardNumber);
@@ -169,22 +173,52 @@ $(document).ready(function() {
     $("#distribute").click(function () {
         if (playerArray.length !== 0) {
             var baseUrl = "http://localhost:8080/demo/";
+            var playerObject;
             for (var i in playerArray) {
-                console.log(playerArray[i])
-                $.ajax({
-                    type: "GET",
-                    url: baseUrl + "distribute",
-                    contentType: "application/json",
-                    dataType: 'json',
-                    data: {player: JSON.stringify(playerArray[i])},
-                    success: function (returnedData) {
-                        console.log(returnedData);
-                    }
-                });
+                console.log(playerArray[i]);
+                playerObject = {
+                    idPlayer: playerArray[i]['idPlayer'],
+                    nickName: playerArray[i]['nickName'],
+                    point: playerArray[i]['point']
+                };
             }
+            $.ajax({
+                type: "GET",
+                url: baseUrl + "distribute",
+                contentType: "application/json; charset=utf-8",
+                dataType: 'json',
+                data: playerObject,
+                success: function (returnedData) {
+
+                    for(var i in returnedData){
+                        cardDistribute.push(returnedData[i]);
+                    }
+                }
+            });
         }
     });
 });
+
+$(document).ready(function() {
+    $("#refresh").click(function () {
+        if (cardDistribute.length !== 0) {
+            var baseUrl = "http://localhost:8080/demo/";
+            $.ajax({
+                type: "GET",
+                url: baseUrl + "update",
+                contentType: "application/json; charset=utf-8",
+                dataType: 'json',
+                data: {cards : cardDistribute},
+                success: function (returnedData) {
+                    console.log(returnedData);
+                    cardArraySave = returnedData;
+                }
+            });
+        }
+    });
+});
+
+
 
 
 

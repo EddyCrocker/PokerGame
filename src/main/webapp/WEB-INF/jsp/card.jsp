@@ -17,7 +17,8 @@
                 </form>
                 <button id="submit">SAVE</button>
             </div>
-            <button id="distribute">SAVE</button>
+            <button id="distribute">DISTRIBUTE</button>
+            <button id="refresh">REFRESH</button>
         <div id="avatarSpace"></div>
         </body>
 </html>

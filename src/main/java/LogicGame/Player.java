@@ -6,6 +6,7 @@ public class Player implements Comparable<Player>{
     private String nickName;
     private int point;
 
+    @Deprecated
     public Player() {
     }
 

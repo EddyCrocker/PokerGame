@@ -1,9 +1,6 @@
 package RestController;
 
-import LogicGame.CardGame;
-import LogicGame.Cards;
-import LogicGame.Player;
-import LogicGame.nickNameInsert;
+import LogicGame.*;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -18,7 +15,7 @@ public class RestMainController
     }
 
     @GetMapping("/update")
-    public  List<Cards> updateCardPackage(){ return new CardGame().updateCardPackage();
+    public  List<Cards> updateCardPackage(@ModelAttribute CardsList cards){ return new CardGame().updateCardPackage(cards);
     }
 
     @GetMapping("/welcome")
@@ -33,7 +30,7 @@ public class RestMainController
     public List<Player> countPlayer(@RequestParam nickNameInsert namePlayers){ return new CardGame().InitializeSessionGame(namePlayers); }
 
     @GetMapping("/distribute")
-    public Map<Player,List<Cards>> distributeCardsForPlayers(@RequestParam Player player) { return new CardGame().distributeCardsForPlayers(player);}
+    public Map<Player,List<Cards>> distributeCardsForPlayers(@ModelAttribute Player player) { return new CardGame().distributeCardsForPlayers(player);}
 
 //    @GetMapping("/distributeCards")
 //    public ModelAndView welcomePage(){

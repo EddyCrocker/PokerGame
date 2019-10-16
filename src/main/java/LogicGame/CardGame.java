@@ -49,7 +49,12 @@ public class CardGame implements Game {
 //        playGameNow();
     }
 
-    public List<Cards> updateCardPackage(){
+    public List<Cards> updateCardPackage(CardsList cards){
+        if(cards != null) {
+            for (Cards c : cards.getCardsList()) {
+                card.remove(c);
+            }
+        }
         return card;
     }
 
@@ -64,7 +69,7 @@ public class CardGame implements Game {
         int m = 0;
 
 //      p.setPoint(0);
-        List<Cards> cards = new ArrayList<Cards>();
+        List<Cards> cards = new ArrayList<>();
         int cardLimit = m + numberOfCardsPerPlayer;
         for(int i = m; i < cardLimit; i++){
             Cards cardsGet = card.get(i);
